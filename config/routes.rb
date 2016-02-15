@@ -53,4 +53,16 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  root 'users#login'
+
+  resources :users do
+    collection do
+      # get url
+      get  'authenticate'
+
+      #post url
+
+
+    end
+  end
 end
