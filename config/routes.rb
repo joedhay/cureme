@@ -55,13 +55,21 @@ Rails.application.routes.draw do
   #   end
   root 'users#login'
 
+
+
   resources :users do
     collection do
       # get url
+      get  'login'
+      get  'logout'
+      get  'register'
       get  'authenticate'
 
-      #post url
 
+
+      #post url
+      post 'authenticate'
+      post 'create_user'
 
     end
   end
