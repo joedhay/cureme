@@ -3,7 +3,7 @@
 <head>
   <title>QureMy</title>
   <%= stylesheet_link_tag    'application'%>
-  <%= stylesheet_link_tag "#{params[:controller]}" %>
+  <%= stylesheet_link_tag 'homes' %>
   <%= javascript_include_tag 'application'%>
   <%= javascript_include_tag "tools/#{params[:controller]}" %>
   <%= csrf_meta_tags %>
@@ -13,7 +13,9 @@
 <div class="container">
   <div class="row">
     <%= render "layouts/category" %>
-    <%= yield %>
+    <div class="col-md-9">
+     <%= yield %>
+    </div>
   </div>
 </div>
 <%= render "layouts/footer" %>
