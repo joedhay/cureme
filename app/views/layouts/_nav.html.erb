@@ -36,6 +36,14 @@
           </li>
         <% end %>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if session[:user_logged_id].present? %>
+            <li>
+            <li><a href="#"><%= "Hi,#{session[:username]}" %> </a></li>
+            </li>
+        <% end %>
+
+      </ul>
     </div>
     <!-- /.navbar-collapse -->
   </div>

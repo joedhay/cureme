@@ -1,0 +1,95 @@
+<div class="comment_lists">
+  <div class="row">
+    <%= hidden_field_tag 'product_id', @product.id %>
+    <div class="rounded">
+      <div class="col-md-8">
+        <div class="form-group required">
+          <h1><%= @product.item_name %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 100px;">
+      <div class="row">
+        <div class="panel panel-danger">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Comments  <span class="badge message_count"><%= @comment_cnt %></h3>
+            </div>
+
+            <div class="panel-body">
+              <div class="form-group required">
+                <% if @comments.present? %>
+                    <% @comments.each do |comment| %>
+                        <div class="rounded">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"><p><%= return_name comment.user_id %></p></h3>
+                          </div>
+                          <div class="panel panel-danger">
+                            <div class="panel-body">
+                              <input type="hidden" name="Username" value="<%= comment.id %>" class="comment_ids">
+                              <div class="form-group required">
+                                <%=  comment.description %>
+                              </div>
+                              <div class="form-group required">
+                                Posted: <%=  comment.created_at %>
+                              </div>
+
+                              <%= hidden_field_tag 'message_to', comment.user_id %>
+                              <p>
+                              <div class="container-fluid">
+                                <%= puts comment.id %>
+                                <%= render :partial => "comments/child_comments", :locals => {:comments => (return_child_comments comment.id)} %>
+                              </div>
+                              <!--<a href="#!" class="post_reply_comment" id="reply_comment_<%#= comment.id %>" title="<%#= comment.id %>">Reply</a>-->
+                              <div class="form-group required comment_area_<%= comment.id %>" style="display: none;">
+                                <%= label_tag 'Message'  %>
+                                <%= text_area_tag "reply_comment_message_#{comment.id}",nil, :cols => "30", :rows => "10",:class=>"form-control reply_comment_message_#{comment.id}"  %>
+                                <br/>
+                                <br/>
+                                <a href="#!" class="reply_send_comment" data-original-title="Edit"><button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit">Submit</button></a>
+                                <div class="btn-group">
+                                  <a href="#!" class="btn btn-default cancel_reply_comment">
+                                    Cancel
+                                  </a>
+                                </div>
+                              </div>
+
+                              </p>
+
+                            </div>
+                          </div>
+                        </div>
+
+                    <% end %>
+                    <p><a href="#!" class="post_comment">Post New Comment.</a> </p>
+                <% else %>
+                    <p>No comments.<a href="#!" class="post_comment">Post New Comment.</a> </p>
+                <% end %>
+              </div>
+            </div>
+            <div class="panel-footer clearfix">
+              <div class="form-group required comment_area" style="display: none;">
+                <%= label_tag 'Message'  %>
+                <%= text_area_tag 'comment_message',nil, :cols => "10", :rows => "3",:class=>'form-control comment_message'  %>
+                <br/>
+                <br/>
+                <a href="#!" class="send_comment" data-original-title="Edit"><button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit">Submit</button></a>
+                <div class="btn-group">
+                  <a href="#!" class="btn btn-default cancel_comment">
+                    Cancel
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    create_comments();
+
+</script>

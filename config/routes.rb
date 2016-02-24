@@ -71,4 +71,19 @@ Rails.application.routes.draw do
 
     end
   end
+
+  resources :comments do
+    collection do
+      # get url
+      get 'comment_lists'
+
+
+
+
+      #post url
+      post 'save_comments'
+
+
+    end
+  end
 end
