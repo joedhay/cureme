@@ -11,16 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20160223172059) do
 
+
   create_table "products", force: :cascade do |t|
-    t.integer  "category_id", limit: 4
-    t.string   "item_name",   limit: 255
-    t.decimal  "price",                   precision: 10
-    t.string   "description", limit: 255
-    t.string   "groups",      limit: 255
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "category_id",        limit: 4
+    t.string   "item_name",          limit: 255
+    t.decimal  "price",                          precision: 10
+    t.string   "description",        limit: 255
+    t.string   "groups",             limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "item1_file_name",    limit: 255
+    t.string   "item1_content_type", limit: 255
+    t.integer  "item1_file_size",    limit: 4
+    t.datetime "item1_updated_at"
+    t.string   "item2_file_name",    limit: 255
+    t.string   "item2_content_type", limit: 255
+    t.integer  "item2_file_size",    limit: 4
+    t.datetime "item2_updated_at"
+    t.string   "item3_file_name",    limit: 255
+    t.string   "item3_content_type", limit: 255
+    t.integer  "item3_file_size",    limit: 4
+    t.datetime "item3_updated_at"
+    t.string   "item4_file_name",    limit: 255
+    t.string   "item4_content_type", limit: 255
+    t.integer  "item4_file_size",    limit: 4
+    t.datetime "item4_updated_at"
   end
 
   create_table "roles", force: :cascade do |t|
