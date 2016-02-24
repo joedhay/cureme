@@ -14,15 +14,27 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
-          <a href="#">Categories</a>
-        </li>
-        <li>
-          <a href="#">Login</a>
-        </li>
-        <li>
-          <a href="#">Sign Up</a>
-        </li>
+        <%= puts session[:user_logged_id].present? %>
+        <% if session[:user_logged_id].present? %>
+          <li>
+            <a href="#">Categories</a>
+          </li>
+        <% end %>
+        <% if !session[:user_logged_id].present? %>
+          <li>
+            <a href="<%= login_users_path %>">Login</a>
+          </li>
+        <% end %>
+        <% if session[:user_logged_id].present? %>
+            <li>
+              <a href="<%= logout_users_path %>">Logout</a>
+            </li>
+        <% end %>
+        <% if !session[:user_logged_id].present? %>
+          <li>
+            <a href="<%= register_users_path %>">Sign Up</a>
+          </li>
+        <% end %>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

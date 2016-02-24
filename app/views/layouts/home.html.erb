@@ -12,7 +12,9 @@
 <%= render "layouts/nav" %>
 <div class="container">
   <div class="row">
-    <%= render "layouts/category" %>
+    <% if session[:user_logged_id].present? %>
+      <%= render "layouts/category" %>
+    <% end %>
     <div class="col-md-9">
      <%= yield %>
     </div>

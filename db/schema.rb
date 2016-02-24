@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217065858) do
+ActiveRecord::Schema.define(version: 20160223172059) do
 
   create_table "products", force: :cascade do |t|
     t.integer  "category_id", limit: 4
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(version: 20160217065858) do
     t.string   "groups",      limit: 255
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160217065858) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.integer  "logged_count",        limit: 4
   end
 
 end

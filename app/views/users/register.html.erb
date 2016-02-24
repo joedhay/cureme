@@ -111,6 +111,14 @@
         <%= f.text_field :phone_number,:class=>'form-control', :placeholder =>'+66' %>
       </div>
 
+      <%= f.fields_for :role do |role| %>
+          <div class="form-group">
+            <%= role.label 'Role' %><br>
+
+            <%= role.select(:name, options_for_select([ 'Admin','User','Guest' ], 'No User Role'),{},{ :class => 'form-control'}) %>
+          </div>
+      <% end %>
+
 
       <div class="actions">
         <%= f.submit 'Save User', :class => 'btn btn-primary'%>
