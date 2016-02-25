@@ -5,25 +5,44 @@
 
     <div class="row">
       <div class="col-lg-12">
-      <div class="thumbnail">
-        <img src="http://placehold.it/320x150" alt="">
-        <div class="caption">
-          <h4 class="pull-right">$24.99</h4>
-          <h4><a href="#">First Product</a>
-          </h4>
-          <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+        <div id="products" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#products" data-slide-to="0" class="active"></li>
+            <li data-target="#products" data-slide-to="1"></li>
+            <li data-target="#products" data-slide-to="2"></li>
+            <li data-target="#products" data-slide-to="3"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <%= image_tag @product.item1.url(:large) %>
+            </div>
+
+            <div class="item">
+              <%= image_tag @product.item2.url(:large) %>
+            </div>
+
+            <div class="item">
+              <%= image_tag @product.item3.url(:large) %>
+            </div>
+
+            <div class="item">
+              <%= image_tag @product.item4.url(:large) %>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-        <div class="ratings">
-          <p class="pull-right">15 reviews</p>
-          <p>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-          </p>
-        </div>
-      </div>
     </div>
       <div class="col-lg-12">
        <p><%= @product.description %></p>
@@ -35,13 +54,12 @@
       <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><h3>Sample Product</h3></h3>
+        <h3 class="panel-title"><h3><%= @product.item_name %></h3></h3>
       </div>
       <div class="panel-body">
         <br/><br/><br/>
-        <span class="glyphicon glyphicon-user"></span><a>sample uploader</a><br/><br/>
-        <span class="glyphicon glyphicon-file"></span>$0<br/><br/>
-        <span class="glyphicon glyphicon-record"></span>Singapore<br/><br/><br/><br/>
+        <span class="glyphicon glyphicon-file"></span>$<%= @product.price %><br/><br/>
+        <span class="glyphicon glyphicon-record"></span><%= @product.groups %><br/><br/><br/><br/>
         <button class="btn btn-primary form-control">Click to Buy</button><br/><br/>
         <button class="btn btn-default form-control">Like this</button>
       </div>
@@ -90,33 +108,3 @@
 </div>
 
 
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @product.category_id %>
-</p>
-
-<p>
-  <strong>Item name:</strong>
-  <%= @product.item_name %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Groups:</strong>
-  <%= @product.groups %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
