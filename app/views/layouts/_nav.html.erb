@@ -14,16 +14,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <% session[:categories].each do |cat|%>
-            <li>
-              <%= link_to cat.name, search_by_category_products_path(:category_id => cat.id) %>
-            </li>
-        <% end %>
+
         <%= puts session[:user_logged_id].present? %>
         <% if session[:user_logged_id].present? %>
           <% if session[:role] == 'Admin' %>
             <li>
               <a href="<%= categories_path %>">Categories</a>
+            </li>
+            <li>
+              <a href="<%= products_path %>">Products</a>
             </li>
           <% end %>
         <% end %>
@@ -32,11 +31,7 @@
             <a href="<%= login_users_path %>">Login</a>
           </li>
         <% end %>
-        <% if session[:user_logged_id].present? %>
-            <li>
-              <a href="<%= logout_users_path %>">Logout</a>
-            </li>
-        <% end %>
+
         <% if !session[:user_logged_id].present? %>
           <li>
             <a href="<%= register_users_path %>">Sign Up</a>
@@ -45,10 +40,19 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if session[:user_logged_id].present? %>
-            <li>
-            <li><a href="#"><%= "Hi,#{session[:username]}" %> </a></li>
-            <li><a href="<%= profile_users_path(:id => session[:user_logged_id]) %>">Profile</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= "Hi, #{session[:username]}" %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="<%= profile_users_path(:id => session[:user_logged_id]) %>">Profile</a></li>
+                <li role="separator" class="divider"></li>
+                <% if session[:user_logged_id].present? %>
+                    <li>
+                      <a href="<%= logout_users_path %>">Logout</a>
+                    </li>
+                <% end %>
+              </ul>
             </li>
+
         <% end %>
 
       </ul>

@@ -1,46 +1,40 @@
-<div class="container">
-  <div class="row">
-    <div class="form-group has-feedback">
-      <% if flash[:error] %>
+<div class="col-lg-12">
+  <div class="form-group has-feedback">
+    <% if flash[:error] %>
         <div class="alert alert-danger open-sans-regular" id="users_error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <%= @error_alert %>
           <div class="notice" style="font-size: 14px;"><%= flash[:error] %></div>
           <% flash[:error]=nil %>
         </div>
-      <% end %>
-      <%- if !flash[:notice].nil? %>
+    <% end %>
+    <%- if !flash[:notice].nil? %>
         <div class="alert alert-success open-sans-regular" id="users_error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <%= @error_alert %>
           <div class="notice" style="font-size: 14px;"><%= flash[:notice] %></div>
           <% flash[:notice]=nil %>
         </div>
-      <%- end %>
-    </div>
-    <div class="col-sm-6 col-md-12 ">
-      <h1 class="text-center login-title">Cure Me</h1>
-      <div class="account-wall">
-        <%= form_tag(authenticate_users_path, {  :name=> "login",:class=>'form-signin' } )  do %>
-          <input type="text" class="form-control" placeholder="Email" id="email" name="email" required autofocus>
-          <br/>
-          <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
-          <!--<br/>-->
-          <!--<input type="text" class="form-control" placeholder="Code" id="code" name="code" style="display: none;">-->
-          <br/>
-          <input type="checkbox" name="remeber_me" id="remember_me" /> &nbsp; Remember me?
-          <br/>
-          <button class="btn btn-lg btn-primary btn-block btn-login" type="submit">Sign in</button>
-        <% end %>
-      </div>
-      <br/>
-      <a href="<%= register_users_path %>" class="text-center new-account">Create an account </a>
-      <a href="<%= '#!' %>" class="text-center new-account" role="button">Forgot Password?</a>
-    </div>
+    <%- end %>
   </div>
 </div>
+<div class="col-md-5" >
+  <a href="#"><img src="/assets/fb.png"/></a><br/>
+  <a href="#"><img src="/assets/tw.png" /></a><br/>
+  <a href="#"><img src="/assets/gplus.png" /></a>
+</div>
 
-<script>
+<div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
 
 
-</script>
+  <%= form_tag(authenticate_users_path, {  :name=> "login",:class=>'form-signin' } )  do %>
+      <fieldset>
+      <input type="text" class="form-control input-md" placeholder="Enter Email" id="email" name="email" required autofocus>
+      <input type="password" class="form-control input-md" placeholder="Enter Password" id="password" name="password" required>
+      <div class="spacing"><input type="checkbox" name="remeber_me" id="remeber_me" value="1"><small> Remember me</small></div>
+        <div class="spacing"><a href="#"><small> Forgot Password?</small></a><br/></div>
+      <button class="btn btn-info btn-sm pull-right" type="submit">Sign in</button>
+
+      </fieldset>
+  <% end %>
+</div>

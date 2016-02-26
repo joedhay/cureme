@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QureMy</title>
+  <%= stylesheet_link_tag    'application'%>
+  <%= stylesheet_link_tag "user_login" %>
+  <%= javascript_include_tag 'application'%>
+  <%= javascript_include_tag "tools/#{params[:controller]}" %>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="middlePage">
+  <div class="page-header">
+    <h1 class="logo">QureMy <small>Welcome to our place!</small></h1>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title"><% if params[:action] == 'login' %>Please Sign In<% end %><% if params[:action] == 'register' %>Please Sign Up<% end %></h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <%= yield%>
+
+      </div>
+
+    </div>
+  </div>
+
+  <p><%= link_to "Home", homes_path%> · <% if params[:action] == 'login' || params[:action] == 'forgot_password'%><%= link_to "Register", register_users_path%><% end %><% if params[:action] == 'register' %><%= link_to "Login", login_users_path%><% end %></p>
+
+</div>
+</body>
+</html>

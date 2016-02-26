@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  layout 'layouts/home'
-
+  layout 'layouts/login_layout', :only => [:login,:authenticate,:show,:reset_password,:forgot_password,:register]
   def login
 
   end

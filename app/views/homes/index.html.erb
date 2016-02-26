@@ -4,7 +4,7 @@
 
         <div class="col-md-12">
           <div class="page-header">
-            <h1>Home <small>Search results for "medicines"</small></h1>
+            <h1>Home <!--<small>Search results for "medicines"</small>--></h1>
           </div>
 
         </div>
@@ -16,34 +16,21 @@
                 <div class="dropdown dropdown-lg">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                   <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <form class="form-horizontal" role="form">
-                      <div class="form-group">
+                    <%= form_for @product, url: search_box_homes_path(@product), html: { role: 'form' } do |f| %>
+                      <div class="form-group" style="margin-bottom: 40px;">
                         <label for="filter">Filter by</label>
-                        <select class="form-control">
-                          <option value="0" selected>All Products</option>
-                          <option value="1">All Services</option>
-                          <option value="2">Medicines</option>
-                          <option value="3">Herbal</option>
-                          <option value="4">Nutriceuticals</option>
-                          <option value="5">Beauty Products</option>
-                          <option value="6">Biomedical</option>
-                          <option value="7">Medical Equipment</option>
-                          <option value="8">Other Products</option>
-                          <option value="9">Medical Services</option>
-                          <option value="10">Allied Services</option>
-                          <option value="11">Other Services</option>
-                        </select>
+                        <%= f.select :category_id, @categories.collect { |c| [c.name, c.id] }, {prompt: 'Select'}, { :class => 'form-control'}  %>
                       </div>
-                      <div class="form-group">
-                        <label for="contain">Author</label>
-                        <input class="form-control" type="text" />
+                      <div class="form-group" style="margin-bottom: 40px;">
+                        <label for="contain">Group</label>
+                        <%= f.text_field :groups, :class => 'form-control' %>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" style="margin-bottom: 40px;">
                         <label for="contain">Contains the words</label>
-                        <input class="form-control" type="text" />
+                        <%= f.text_field :description, :class => 'form-control' %>
                       </div>
                       <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    </form>
+                    <% end %>
                   </div>
                 </div>
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

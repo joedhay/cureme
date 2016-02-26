@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /products
@@ -64,34 +65,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def search_by_category
-    @id = params[:category_id]
-    @products = Product.where(:category_id => @id)
-    redirect_to products_path
-  end
 
-  def search_box
-    @search = params[:search]
-    @category_id = params[:category_id]
-    @user = params[:name]
-    @desc = params[:desc]
-
-    @user_ids = []
-
-    @users = User.where("first_name LIKE '%#{@name}%' OR last_name LIKE '%#{@name}%'")
-
-    if @users.present?
-      @users.each do |user|
-        @user_ids << user.id
-      end
-    end
-
-    if !@category_id.nil?
-      @products = Product.where("item_name LIKE '%#{@search}%' AND category_id = #{@category_id} AND description LIKE '%#{@desc}%'", :user_id => @user_ids)
-    else
-      @products = Product.where("item_name LIKE '%#{@search}%' AND description LIKE '%#{@desc}%'", :user_id => @user_ids)
-    end
-  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -100,6 +74,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:category_id, :item_name, :price, :description, :groups)
+      params.require(:product).permit(:category_id, :item_name, :price, :description, :groups, :item1, :item2, :item3, :item4)
     end
 end

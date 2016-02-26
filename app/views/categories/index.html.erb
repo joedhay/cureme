@@ -20,10 +20,10 @@
   <div class="table-responsive">
     <div id="toolbar">
       <% if session[:role] == 'Admin' %>
-          <a href="<%= new_category_path %>" class="btn btn-default btn-title">
+          <a href="<%= new_category_path %>" class="btn btn-primary btn-title">
             <i class="fa fa-plus"></i> Add Category
           </a>
-          <a href="#" class="btn btn-default btn-title btn_delete">
+          <a href="#" class="btn btn-danger btn-title btn_delete">
             <i class="fa fa-trash"></i> Delete Category
           </a>
       <% end %>

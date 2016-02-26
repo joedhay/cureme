@@ -54,13 +54,13 @@ Rails.application.routes.draw do
   #   end
   # root 'users#login'
   root 'homes#index'
-  resources :homes
-  resources :products do
-    collection do
-      get  'search_by_category'
-      get  'search_box'
-    end
+  resources :homes do
+  collection do
+    get  'search_by_category'
+    get  'search_box'
   end
+end
+  resources :products
   resources :users do
     collection do
       # get url

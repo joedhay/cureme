@@ -1,23 +1,18 @@
-<div class="col-md-3">
-  <p class="lead">Products</p>
-  <div class="list-group">
-    <a href="#" class="list-group-item">Medicines</a>
-    <a href="#" class="list-group-item">Herbal</a>
-    <a href="#" class="list-group-item">Nutriceuticals</a>
-    <a href="#" class="list-group-item">Beauty Products</a>
-    <a href="#" class="list-group-item">Biomedical</a>
-    <a href="#" class="list-group-item">Medical Equipment</a>
-    <a href="#" class="list-group-item">Other Products</a>
-  </div>
-  <p class="lead">Services</p>
-  <div class="list-group">
-    <a href="#" class="list-group-item">Medical Services</a>
-    <a href="#" class="list-group-item">Allied Services</a>
-    <a href="#" class="list-group-item">Other Services</a>
-  </div>
-  <p class="lead">Chat</p>
-  <div class="list-group">
-    <a href="<%= comments_path %>" class="list-group-item">Comments</a>
-    <a href="#" class="list-group-item">Messages</a>
-  </div>
-</div>
+<% if !session[:categories].nil? %>
+    <div class="col-md-3">
+      <p class="lead">Categories</p>
+      <div class="list-group">
+
+          <% session[:categories].each do |cat|%>
+                <%= link_to cat.name, search_by_category_homes_path(:category_id => cat.id), :class => 'list-group-item' %>
+          <% end %>
+      </div>
+      <% if session[:user_logged_id].present? %>
+      <p class="lead">Chat</p>
+      <div class="list-group">
+        <a href="<%= comments_path %>" class="list-group-item">Comments</a>
+        <a href="#" class="list-group-item">Messages</a>
+      </div>
+      <% end %>
+    </div>
+<% end %>
