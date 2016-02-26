@@ -42,6 +42,7 @@
         <% if session[:user_logged_id].present? %>
             <li>
             <li><a href="#"><%= "Hi,#{session[:username]}" %> </a></li>
+            <li><a href="<%= profile_users_path(:id => session[:user_logged_id]) %>">Profile</a></li>
             </li>
         <% end %>
 

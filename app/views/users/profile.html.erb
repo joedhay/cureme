@@ -1,6 +1,6 @@
 
 <div class="container">
-  <%= form_for(@user,:url => create_user_users_path) do |f| %>
+  <%= form_for(@user) do |f| %>
       <%= hidden_field_tag 'action_page', 'register' %>
       <div class="form-group has-feedback">
         <%- if  @user.present?  %>
@@ -36,7 +36,7 @@
 
       <div class="form-group required">
         <%= f.label :first_name %>
-        <%= f.text_field :first_name,:class=>'form-control', :placeholder =>'First name' %>
+        <%= f.text_field :first_name,:class=>'form-control', :placeholder =>'First name'%>
       </div>
 
       <div class="form-group required">
@@ -57,6 +57,7 @@
         </div>
         <div id="map" style='width: 100%; height: 700px;'></div>
       </div>
+
 
       <div class="form-group required">
         <%= f.label :email %>
@@ -123,7 +124,7 @@
       <%= f.fields_for :role do |role| %>
           <div class="form-group">
             <%= role.label 'Role' %><br>
-            <%= role.select(:name, options_for_select([ 'Admin','User','Guest' ], 'No User Role'),{},{ :class => 'form-control'}) %>
+            <%= role.select(:name, options_for_select([ 'Admin','User','Guest' ],@user.role.name),{},{ :class => 'form-control'}) %>
           </div>
       <% end %>
 
@@ -131,7 +132,7 @@
       <div class="actions">
         <%= f.submit 'Save User', :class => 'btn btn-primary'%>
         <div class="btn-group">
-          <a href="<%= homes_path %>" class="btn btn-default ">
+          <a href="<%= products_path %>" class="btn btn-default ">
             Cancel
           </a>
         </div>
@@ -144,57 +145,62 @@
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js' type='text/javascript'></script>
 <script>
     var user_address = $('#user_address').val();
-
-    var myOptions = {
-        zoom: 6,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map"), myOptions);
-
-    // Try W3C Geolocation (Preferred)
-    if(navigator.geolocation) {
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(function(position) {
-            initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            map.setCenter(initialLocation);
-        }, function() {
-            handleNoGeolocation(browserSupportFlag);
-        });
-    } else {
-        browserSupportFlag = false;
-        handleNoGeolocation(browserSupportFlag);
-    }
     var gmarkers = [];
-    google.maps.event.addListener(map, 'click', function (evt) {
-        console.log("EVT:"+evt);
-        var loc = evt.latLng;
-        var latitude = evt.latLng.lat();
-        var longitude = evt.latLng.lng();
-
-        var lastMarker;
+    if(user_address.length > 0){
         $.ajax({
             method: "POST",
-            data: {latitude: latitude, longitude: longitude},
+            data: {me:'self'},
             url: "/maps/get_user_coordinates"
-        }).done(function (data) {
-            if(gmarkers.length > 0){
-                for(var i=0; i < gmarkers.length; i++){
-                    gmarkers[i].setMap(null);
-                }
+        }).done(function(data) {
+            if(data.state == 'valid'){
+
+                var myLatlng = new google.maps.LatLng(data.latitude, data.longitude);
+
+                var mapOptions = {
+                    zoom: 10,
+                    center: myLatlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    url: 'http://www.google.com'
+                });
+                gmarkers.push(marker);
+                google.maps.event.addListener(map, 'click', function (evt) {
+                    console.log("EVT:"+evt.latLng);
+                    var loc = evt.latLng;
+                    var latitude = evt.latLng.lat();
+                    var longitude = evt.latLng.lng();
+                    var lastMarker;
+                    $.ajax({
+                        method: "POST",
+                        data: {latitude: latitude, longitude: longitude},
+                        url: "/maps/get_user_coordinates"
+                    }).done(function (data) {
+                        console.log("gmarkers:"+gmarkers)
+                        if(gmarkers.length > 0){
+                            for(var i=0; i < gmarkers.length; i++){
+                                gmarkers[i].setMap(null);
+                            }
+                        }
+                        $('#user_address').val(data.location);
+
+                        lastMarker = new google.maps.Marker({
+                            map: map,
+                            position: new google.maps.LatLng(latitude, longitude)
+                        });
+
+
+                        gmarkers.push(lastMarker);
+
+                    });
+                });
             }
-            $('#user_address').val(data.location);
-
-            lastMarker = new google.maps.Marker({
-                map: map,
-                position: new google.maps.LatLng(latitude, longitude)
-            });
-
-
-            gmarkers.push(lastMarker);
-
         });
-    });
 
-
+    }
 
 </script>
