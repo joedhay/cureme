@@ -86,4 +86,19 @@ Rails.application.routes.draw do
 
     end
   end
+
+  resources :categories do
+    collection do
+      # get url
+      get 'delete_category'
+
+
+
+
+      #post url
+      post 'delete_all_category'
+
+
+    end
+  end
 end

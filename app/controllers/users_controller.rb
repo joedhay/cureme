@@ -39,8 +39,9 @@ class UsersController < ApplicationController
       session[:email] = user.email
       session[:user_logged_id] = user.id
       session[:time_logged] = Time.now + 1.week
+      session[:role] = user.role.name
       flash[:notice] = "Welcome User"
-      puts session[:username]
+      puts session[:role]
       logged_user = User.find(user.id)
 
       if logged_user.present?

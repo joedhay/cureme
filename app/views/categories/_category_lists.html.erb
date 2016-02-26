@@ -1,0 +1,89 @@
+<div class="categories_lists">
+  <div class="form-group has-feedback">
+    <% if flash[:error] %>
+        <div class="alert alert-danger open-sans-regular" id="users_error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= @error_alert %>
+          <div class="notice" style="font-size: 14px;"><%= flash[:error] %></div>
+          <% flash[:error]=nil   %>
+        </div>
+    <% end %>
+    <%- if !flash[:notice].nil? %>
+        <div class="alert alert-success open-sans-regular" id="users_error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <div class="notice" style="font-size: 14px;"><%= flash[:notice] %></div>
+          <% flash[:notice]=nil %>
+        </div>
+    <%- end %>
+  </div>
+
+  <div class="table-responsive">
+    <div id="toolbar">
+      <% if session[:role] == 'Admin' %>
+          <a href="<%= new_category_path %>" class="btn btn-default btn-title">
+            <i class="fa fa-plus"></i> Add Category
+          </a>
+          <a href="#" class="btn btn-default btn-title btn_delete">
+            <i class="fa fa-trash"></i> Delete Category
+          </a>
+      <% end %>
+    </div>
+    <br/>
+    <table  class="table table-striped table-bordered"
+            data-toggle="table"
+            data-toolbar="#toolbar"
+            data-search="true"
+            data-show-export="true"
+            data-minimum-count-columns="2"
+            data-pagination="true"
+            data-page-list="[10, 25, 50, 100, ALL]">
+      <thead>
+      <% if @categories.present? %>
+          <tr>
+            <% if session[:role] == 'Admin' %>
+                <th><input type="checkbox"  class="category_list_master" name="category_list_master"></th>
+            <% end %>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+      <% end %>
+      </thead>
+      <tbody>
+      <% if @categories.present? %>
+          <% @categories.each do |cat| %>
+              <tr>
+                <% if session[:role] == 'Admin' %>
+                    <td><input type="checkbox" name="items[]" value="<%= cat.id %>" class="category_list"></td>
+                <% end %>
+                <td><%= cat.name %></td>
+                <% if session[:role] == 'Admin' %>
+                    <td>
+                      <a href="<%=  edit_category_path(cat) %>" class="edit_link" data-original-title="Edit"><button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit">Edit<span class="fa fa-edit"></span></button></a>
+                      <a href="<%=  delete_category_categories_path %>?id=<%=  cat.id %>" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">Delete
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </td>
+                <% end %>
+              </tr>
+          <% end %>
+      <% else %>
+          <tr>
+            <% if session[:role] == 'Admin' %>
+              <td>No category data available.<a href="<%= new_category_path %>"> Create New Category</a></td>
+            <% end %>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<script>
+    $( document ).ready(function() {
+        clearInterval(interval);
+        select_all_categories();
+        delete_all_categories();
+    });
+
+</script>
