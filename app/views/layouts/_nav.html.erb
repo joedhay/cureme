@@ -14,6 +14,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+        <% session[:categories].each do |cat|%>
+            <li>
+              <%= link_to cat.name, search_by_category_products_path(:category_id => cat.id) %>
+            </li>
+        <% end %>
         <%= puts session[:user_logged_id].present? %>
         <% if session[:user_logged_id].present? %>
           <% if session[:role] == 'Admin' %>
