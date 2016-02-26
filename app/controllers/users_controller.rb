@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     session[:email] = nil
     session[:user_logged_id] = nil
     session[:time_logged] = nil
+    session[:role] = nil
     redirect_to login_users_path
   end
 
@@ -88,6 +89,37 @@ class UsersController < ApplicationController
       redirect_to login_users_path
     else
       render :register
+    end
+  end
+
+  def profile
+    @user = User.find(params[:id])
+    @months = { 'January' => '01', 'February' => '02','March' => '03', 'April'=> '04','May' => '05','June' => '06',
+                'July' => '07', 'August' => '08', 'September' => '09','October' =>'10', 'November' => '11','December'=> '12' }
+
+  end
+
+  def update
+    @user = User.find(params[:id])
+    day = params[:day]
+    year = params[:year]
+    month = params[:user][:date_of_birth]
+    @months = { 'January' => '01', 'February' => '02','March' => '03', 'April'=> '04','May' => '05','June' => '06',
+                'July' => '07', 'August' => '08', 'September' => '09','October' =>'10', 'November' => '11','December'=> '12' }
+    if params[:user][:password].present? && params[:user][:confirmed_password].present?
+      @password = User.rehash_password(params[:user][:password])
+      @confirmed_password = User.rehash_password(params[:user][:confirmed_password])
+    end
+
+    if @user.update_attributes!(user_premitted_params)
+      role = Role.where(:user_id => @user.id).first
+      role.update_attributes(:name => params[:user][:role][:name])
+
+      flash[:notice] = "Successfully updated user."
+      session[:role] = params[:user][:role][:name]
+      redirect_to products_path
+    else
+      render :profile
     end
   end
 

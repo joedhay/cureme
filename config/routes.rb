@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       get  'logout'
       get  'register'
       get  'authenticate'
+      get  'profile'
 
 
 
@@ -98,11 +99,19 @@ Rails.application.routes.draw do
       # get url
       get 'delete_category'
 
-
-
-
       #post url
       post 'delete_all_category'
+
+
+    end
+  end
+
+  resources :maps do
+    collection do
+      # get url
+
+      #post url
+      post 'get_user_coordinates'
 
 
     end
