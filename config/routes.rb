@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :products
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,6 +55,12 @@ Rails.application.routes.draw do
   # root 'users#login'
   root 'homes#index'
   resources :homes
+  resources :products do
+    collection do
+      get  'search_by_category'
+      get  'search_box'
+    end
+  end
   resources :users do
     collection do
       # get url
