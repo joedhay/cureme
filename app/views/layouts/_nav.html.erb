@@ -40,19 +40,23 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if session[:user_logged_id].present? %>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= "Hi, #{session[:username]}" %> <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="<%= profile_users_path(:id => session[:user_logged_id]) %>">Profile</a></li>
-                <li role="separator" class="divider"></li>
-                <% if session[:user_logged_id].present? %>
-                    <li>
-                      <a href="<%= logout_users_path %>">Logout</a>
-                    </li>
-                <% end %>
-              </ul>
-            </li>
-
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= "Hi, #{session[:username]}" %> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="<%= profile_users_path(:id => session[:user_logged_id]) %>">Profile</a></li>
+              <li role="separator" class="divider"></li>
+              <% if session[:user_logged_id].present? %>
+                  <li>
+                    <a href="<%= logout_users_path %>">Logout</a>
+                  </li>
+              <% end %>
+            </ul>
+          </li>
+          <li>
+            <% if @user.avatar.exists? %>
+              <%= image_tag @user.avatar.url(:thumb),:size => "50x50" %>
+            <%end%>
+          </li>
         <% end %>
 
       </ul>

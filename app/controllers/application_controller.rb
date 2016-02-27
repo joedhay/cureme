@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :set_categories
   before_filter :get_categories,  :except => [:login]
+  before_filter :get_user_image,  :except => [:login,:register]
 
   def get_categories
       @categories = Category.all
@@ -12,5 +13,11 @@ class ApplicationController < ActionController::Base
 
   def set_categories
     session[:categories] = nil
+  end
+
+  def get_user_image
+    if session[:user_logged_id].present?
+      @user = User.find(session[:user_logged_id])
+    end
   end
 end

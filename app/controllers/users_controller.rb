@@ -108,9 +108,13 @@ class UsersController < ApplicationController
     if params[:user][:password].present? && params[:user][:confirmed_password].present?
       @password = User.rehash_password(params[:user][:password])
       @confirmed_password = User.rehash_password(params[:user][:confirmed_password])
+    else
+      @password = @user.password
+      @confirmed_password = @user.confirmed_password
     end
 
     if @user.update_attributes!(user_premitted_params)
+      @user.update_attributes(:password => @password,:confirmed_password => @confirmed_password)
       role = Role.where(:user_id => @user.id).first
       role.update_attributes(:name => params[:user][:role][:name])
 
