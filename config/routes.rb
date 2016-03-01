@@ -57,10 +57,17 @@ Rails.application.routes.draw do
   resources :homes do
   collection do
     get  'search_by_category'
-    get  'search_box'
+    post 'search_box'
+    get  'new_advance_search'
+    get  'new_advance_search'
+    post 'submit_advanced_search'
   end
 end
-  resources :products
+  resources :products do
+    collection do
+
+    end
+  end
   resources :users do
     collection do
       # get url
