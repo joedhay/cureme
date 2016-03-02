@@ -6,7 +6,6 @@
         <h1><%= @product.item_name %></h1>
       </div>
     </div>
-
   </div>
   <div class="container-fluid" style="margin-top: 100px;">
     <div class="row">
@@ -22,16 +21,30 @@
                   <% @comments.each do |comment| %>
                       <div class="rounded">
                         <div class="panel-heading">
-                          <h3 class="panel-title"><p><%= return_name comment.user_id %></p></h3>
+                          <h3 class="panel-title"><p>
+                            <%= return_name comment.user_id %>
+                            <br>
+                            <% if comment.user_id != session[:user_logged_id] %>
+                                <% if is_follow_user? comment.user_id,session[:user_logged_id] %>
+                                    <button class="btn btn-default follow_btn" id="<%= comment.user_id %>">Follow</button></p>
+                                <% else %>
+                                    <button class="btn btn-default followed_btn" id="<%= comment.user_id %>">Followed</button></p>
+                                <% end %>
+
+                            <% end %>
+                            </h3>
                         </div>
                         <div class="panel panel-danger">
                           <div class="panel-body">
                             <input type="hidden" name="Username" value="<%= comment.id %>" class="comment_ids">
                             <div class="form-group required">
                               <%=  comment.description %>
+
                             </div>
                             <div class="form-group required">
                               Posted: <%=  comment.created_at %>
+                              <br>
+                              <button class="btn btn-default like_btn" id="<%= comment.id %>" title="<%= comment.user_id %>">Like</button></p>
                             </div>
 
                             <%= hidden_field_tag 'message_to', comment.user_id %>
@@ -40,7 +53,7 @@
                               <%= puts comment.id %>
                               <%= render :partial => "comments/child_comments", :locals => {:comments => (return_child_comments comment.id)} %>
                             </div>
-                            <!--<a href="#!" class="post_reply_comment" id="reply_comment_<%#= comment.id %>" title="<%= comment.id %>">Reply</a>-->
+                            <!--<a href="#!" class="post_reply_comment" id="reply_comment_<%#= comment.id %>" title="<%#= comment.id %>">Reply</a>-->
                             <div class="form-group required comment_area_<%= comment.id %>" style="display: none;">
                               <%= label_tag 'Message'  %>
                               <%= text_area_tag "reply_comment_message_#{comment.id}",nil, :cols => "30", :rows => "10",:class=>"form-control reply_comment_message_#{comment.id}"  %>
@@ -88,5 +101,35 @@
 </div>
 
 <script>
-    create_comments()
+    create_comments();
+    $('.follow_btn').click(function(){
+      var user_id = $(this).attr('id');
+      var product_id = $('#product_id').val();
+      $.ajax({
+        method: "POST",
+        data: {user_id:user_id,product_id:product_id},
+        url: "/follow_users/save_follow_users"
+      }).done(function(data) {
+        $('.comment_lists').html('');
+        $('.comment_lists').html(data);
+
+      });
+
+      console.log("user_id:"+user_id);
+    });
+
+    $('.like_btn').click(function(){
+      var comment_id = $(this).attr('id');
+      var product_id = $('#product_id').val();
+
+      $.ajax({
+        method: "POST",
+        data: {comment_id:comment_id,product_id:product_id},
+        url: "/like_comments/save_like_comments"
+      }).done(function(data) {
+        $('.comment_lists').html('');
+        $('.comment_lists').html(data);
+
+      });
+    });
 </script>

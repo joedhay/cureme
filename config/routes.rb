@@ -123,4 +123,26 @@ end
 
     end
   end
+
+  resources :follow_users do
+    collection do
+      # get url
+
+      #post url
+      post 'save_follow_users'
+
+
+    end
+  end
+
+  resources :like_comments do
+    collection do
+      # get url
+
+      #post url
+      post 'save_like_comments'
+
+
+    end
+  end
 end
