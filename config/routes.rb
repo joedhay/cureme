@@ -65,7 +65,7 @@ Rails.application.routes.draw do
 end
   resources :products do
     collection do
-
+      get  'detail'
     end
   end
   resources :users do

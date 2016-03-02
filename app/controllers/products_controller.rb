@@ -14,6 +14,15 @@ class ProductsController < ApplicationController
   def show
   end
 
+  def detail
+    @id = params[:id]
+    @user_id = params[:user_id]
+
+    @product = Product.find(@id)
+    @products = Product.where(:user_id => @user_id)
+    render 'show'
+  end
+
   # GET /products/new
   def new
     @product = Product.new
@@ -29,6 +38,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @product.user_id = session[:user_logged_id]
 
     respond_to do |format|
       if @product.save

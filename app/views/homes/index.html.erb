@@ -43,7 +43,7 @@
           <% end %>
           <div class="caption">
             <h4 class="pull-right"><%=  product.price %></h4>
-            <h4> <%= link_to product.item_name, product %>
+            <h4> <%= link_to product.item_name, detail_products_path(:id => product.id, :user_id => product.user_id)%>
             </h4>
             <p><%=  product.description %></p>
           </div>
