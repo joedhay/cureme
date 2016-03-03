@@ -22,7 +22,10 @@
                       <div class="rounded">
                         <div class="panel-heading">
                           <h3 class="panel-title"><p>
-                            <%= return_name comment.user_id %>
+                            <div class="page-header">
+                              <h3><%= return_name comment.user_id %></h3>
+                            </div>
+
                             <br>
                             <% if comment.user_id != session[:user_logged_id] %>
                                 <% if is_follow_user? comment.user_id,session[:user_logged_id] %>
