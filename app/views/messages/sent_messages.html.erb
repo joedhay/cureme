@@ -1,0 +1,114 @@
+<div class="col-md-3">
+  <p class="lead"><%= @product.item_name %></p>
+  <div class="list-group">
+
+    <% @users.each do |user|%>
+      <%= link_to (return_name user), '', :class => 'list-group-item' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="col-md-9">
+  <% if @messages.present? %>
+    <%#= hidden_field_tag 'task_id', @task_id.present? ? @task_id : params[:id] %>
+    <%#= hidden_field_tag 'from_id', session[:user_logged_id] %>
+    <%#= hidden_field_tag 'to_id', @msg.present? ? @msg.to_id : @msg_id_from  %>
+    <%#= hidden_field_tag 'msg_offer',@msg_offer.present? ? @msg_offer :  params[:offer_id] %>
+    <%#= hidden_field_tag 'offer_id', @offer_id.present? ? @offer_id : params[:offer_id] %>
+    <%#= hidden_field_tag 'channel', @channel %>
+    <% @messages.each do |message| %>
+      <div class="container">
+        <% if message.from_id == session[:user_logged_id] %>
+          <br/>
+          <div class="col-md-12 rounded">
+            <h4><%=raw "Me: #{message.message.html_safe}" %></h4>
+          </div>
+          <br/>
+          <br/>
+        <% elsif message.to_id %>
+          <br/>
+          <div class="col-md-12 rounded pull-right">
+            <h4><%=raw "Fixee: #{message.message.html_safe}" %></h4>
+          </div>
+          <br/>
+          <br/>
+        <% end %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="form-group required">
+      <p>No message available.</p>
+    </div>
+  <% end %>
+  <br>
+  <br>
+  <div class="form-group required reply_area">
+    <%= label_tag 'Message'  %>
+    <%= text_area_tag 'message',nil, :cols => "10", :rows => "5",:class=>'form-control message'  %>
+    <br/>
+    <br/>
+    <a href="#!" class="send_message" data-original-title="Edit" id="<%#= @msg_offer %>"><button class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit">Send</button></a>
+
+    <div class="btn-group">
+      <a href="<%= messages_path %>" class="btn btn-default">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.reply').click(function(){
+    $('.reply_area').show();
+  });
+
+  $('.cancel_reply').click(function(){
+    $('.reply_area').hide();
+  });
+
+  $('.send_message').click(function(){
+    var new_message = $('.message').val();
+
+    if(new_message.length > 0){
+      var task_id = $('#task_id').val();
+      var from_id = $('#from_id').val();
+      var to_id = $('#to_id').val();
+      var channel1 = $('#channel').val();
+      var offer_id = $(this).attr('id');
+      console.log('channel:'+channel);
+      console.log('offer_id:'+offer_id);
+      $.ajax({
+        method: "POST",
+        data: {task_id:task_id,from_id:from_id,message:new_message,to_id:to_id,offer_id:offer_id},
+        url: "/messages/send_new_message"
+      }).done(function(data) {
+        $('.message_lists').html('');
+        $('.message_lists').html(data);
+
+        if(channel1.length > 0){
+          var pusher = new Pusher(pusher_key,{
+            encrypted: true,
+            authEndpoint: '/messages/auth?task_id='+task_id+'&from_id='+from_id+'&to_id='+to_id
+          });
+          pusher.connection.bind( 'error', function( err ) {
+            console.log('>>> detected limit error'+err);
+          });
+
+
+          var channel = pusher.subscribe(channel1);
+
+          channel.bind('my_event', function(data) {
+            console.log('dataJS:'+data.message);
+            if(data.message == null){
+              channel.disconnect();
+            }else{
+
+            }
+
+          });
+        }
+      });
+    }
+  });
+</script>

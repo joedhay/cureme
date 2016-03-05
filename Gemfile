@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.4'
+#ruby '2.2.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use mysql as the database for Active Record
@@ -41,6 +41,9 @@ gem 'imagemagick-identify', '~> 0.0.1'
 gem 'gmaps4rails'
 gem 'geokit-rails'
 gem 'geocoder'
+
+# real time chat
+gem 'pusher'
 
 
 group :development, :test do

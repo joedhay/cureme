@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  ENV['PUSHER_ID'] = "185299";
+  ENV['PUSHER_KEY'] = "c6ab3c3225186ec1967a";
+  ENV['PUSHER_SECRET'] = "749cfd9edafa02e83815";
 end

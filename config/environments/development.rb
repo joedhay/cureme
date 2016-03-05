@@ -38,4 +38,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  ENV['PUSHER_ID'] = "185299";
+  ENV['PUSHER_KEY'] = "c6ab3c3225186ec1967a";
+  ENV['PUSHER_SECRET'] = "749cfd9edafa02e83815";
 end

@@ -145,4 +145,16 @@ end
 
     end
   end
+
+  resources :messages do
+    collection do
+      # get url
+      get 'sent_messages'
+
+      #post url
+
+
+
+    end
+  end
 end
