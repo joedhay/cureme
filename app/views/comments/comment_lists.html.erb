@@ -33,7 +33,7 @@
 
                           </div>
                           <div class="form-group ">
-                            <button class="btn btn-info like_btn" id="<%= comment.id %>" title="<%= comment.user_id %>"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;
+                            <button class="btn btn-info like_btn" id="<%= comment.id %>" title="<%= comment.user_id %>"><span class="fa fa-thumbs-up"></span></button>&nbsp;
                             <% if comment.user_id != session[:user_logged_id] %>
                                 <% if is_follow_user? comment.user_id,session[:user_logged_id] %>
                                     <button class="btn btn-default follow_btn" id="<%= comment.user_id %>">Follow</button>
