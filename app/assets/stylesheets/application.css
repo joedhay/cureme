@@ -12,16 +12,29 @@
  *
  *= require bootstrap.min
  *= require bootstrap-table
+ *= require font-awesome.min
  *= require_self
  */
-
-
-@font-face {
-    font-family: 'Glyphicons Halflings';
-    src: url('/assets/glyphicons-halflings-regular.eot');
-    src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+@font-face{
+    font-family:'Roboto Slab Bold';
+    src:url('/assets/RobotoSlab-Bold.ttf');
 }
-
+@font-face{
+    font-family:'Roboto Slab Light';
+    src:url('/assets/RobotoSlab-Light.ttf');
+}
+@font-face{
+    font-family:'Roboto Slab Regular';
+    src:url('/assets/RobotoSlab-Regular.ttf');
+}
+@font-face{
+    font-family:'Roboto Slab Thin';
+    src:url('/assets/RobotoSlab-Thin.ttf');
+}
+body {
+    font-family: "Roboto Slab Regular",sans-serif;
+    background: #E0F2F1;
+}
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -52,4 +65,9 @@
 }
 .navbar-inverse .navbar-brand {
     color: #80CBC4;
+}
+.btn-custom-1 {
+    color: #E0F2F1;
+    background-color: #26A69A;
+    border-color: #009688;
 }
