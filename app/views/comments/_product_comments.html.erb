@@ -1,0 +1,29 @@
+<p>
+<div class="well">
+  <h4>Leave a Comment:</h4>
+  <div class="form-group">
+    <textarea class="form-control" id="comment_message" rows="3"></textarea>
+  </div>
+  <button class="btn btn-primary submit_comment" data-id="<%= @product.id %>">Submit</button>
+</div>
+</p>
+<p>
+  <% if @comments.present? %>
+      <% @comments.each do |comment| %>
+        <div class="media">
+          <a class="pull-left" href="#">
+            <%= image_tag return_user_image comment.user_id %>
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><%= return_name comment.user_id %>
+              <small><%= comment.created_at %></small>
+            </h4>
+            <%= comment.description %>
+
+          </div>
+        </div>
+    <% end %>
+<% else %>
+    <b>No Comments yet. :)</b>
+<% end %>
+</p>

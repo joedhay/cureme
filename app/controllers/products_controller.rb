@@ -20,6 +20,8 @@ class ProductsController < ApplicationController
 
     @product = Product.find(@id)
     @products = Product.where(:user_id => @user_id)
+    @comments = Comment.where(:product_id => @product.id)
+    @comment_cnt = Comment.where(:product_id => @product.id).count()
     render 'show'
   end
 

@@ -27,7 +27,7 @@ module UsersHelper
     user = User.find(id)
 
     if user.present?
-      user.image.url(:thumb)
+      user.avatar.url(:thumb)
     else
       puts "TEST"
       "/assets/missing.jpg"

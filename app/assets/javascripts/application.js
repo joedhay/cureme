@@ -17,4 +17,3 @@
 //= require bootstrap-table
 //= require bootstrap-filestyle.min
 //= require_tree ./tools
-//= require_self
