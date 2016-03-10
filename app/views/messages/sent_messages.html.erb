@@ -10,12 +10,9 @@
 
 <div class="col-md-9">
   <% if @messages.present? %>
-    <%#= hidden_field_tag 'task_id', @task_id.present? ? @task_id : params[:id] %>
-    <%#= hidden_field_tag 'from_id', session[:user_logged_id] %>
-    <%#= hidden_field_tag 'to_id', @msg.present? ? @msg.to_id : @msg_id_from  %>
-    <%#= hidden_field_tag 'msg_offer',@msg_offer.present? ? @msg_offer :  params[:offer_id] %>
-    <%#= hidden_field_tag 'offer_id', @offer_id.present? ? @offer_id : params[:offer_id] %>
-    <%#= hidden_field_tag 'channel', @channel %>
+    <%= hidden_field_tag 'product_id', @product.id.present? ? @product.id : params[:id] %>
+    <%= hidden_field_tag 'from_id', session[:user_logged_id] %>
+
     <% @messages.each do |message| %>
       <div class="container">
         <% if message.from_id == session[:user_logged_id] %>
@@ -71,13 +68,12 @@
     var new_message = $('.message').val();
 
     if(new_message.length > 0){
-      var task_id = $('#task_id').val();
+      var product_id = $('#product_id').val();
       var from_id = $('#from_id').val();
-      var to_id = $('#to_id').val();
-      var channel1 = $('#channel').val();
-      var offer_id = $(this).attr('id');
+      var to_id = $('#to_id').val(3);
+      var channel1 = '1_3';
       console.log('channel:'+channel);
-      console.log('offer_id:'+offer_id);
+
       $.ajax({
         method: "POST",
         data: {task_id:task_id,from_id:from_id,message:new_message,to_id:to_id,offer_id:offer_id},

@@ -158,4 +158,15 @@ end
 
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :api do
+        collection do
+          get 'get_products'
+        end
+      end
+    end
+  end
+
 end
