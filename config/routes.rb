@@ -65,7 +65,7 @@ Rails.application.routes.draw do
 end
   resources :products do
     collection do
-      get  'detail'
+      post  'detail'
     end
   end
   resources :users do
@@ -96,6 +96,7 @@ end
 
       #post url
       post 'save_comments'
+      post 'save_comment_products'
 
 
     end

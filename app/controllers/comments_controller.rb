@@ -48,4 +48,39 @@ class CommentsController < ApplicationController
     @data = render :partial => 'comments/comment_list'
   end
 
+  def save_comment_products
+    product_id = params[:product_id]
+    message = params[:comment]
+
+    comment = Comment.new
+    comment.product_id = product_id
+    # if message_to.present?
+    #   comment.message_to = message_to
+    #   comment.message_from = session[:user_logged_id]
+    # end
+
+=begin
+    if parent_id.present?
+
+      cmt = Comment.find(parent_id)
+      if cmt.parent_id.present?
+        comment.parent_id = cmt.parent_id
+      else
+        comment.parent_id = parent_id
+      end
+    end
+=end
+    comment.description = message
+    comment.user_id = session[:user_logged_id]
+    comment.save
+
+    @product = Product.find(product_id)
+    @comments = Comment.where("product_id = #{product_id} and parent_id is null")
+    @child_comments = Comment.where("product_id = #{product_id} and message_to = #{session[:user_logged_id]}")
+    @comment_cnt = Comment.where(:product_id => @product.id).count()
+
+
+    @data = render :partial => 'comments/product_comments'
+  end
+
 end
