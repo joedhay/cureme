@@ -13,6 +13,10 @@ class Api::V1:: ApiController < ApplicationController
       @products = []
     end
 
+    respond_to do |format|
+      format.json  { render :nothing => :true, :status => :no_content }
+    end
+
   end
 
 end
