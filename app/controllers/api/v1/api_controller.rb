@@ -1,5 +1,5 @@
 class Api::V1:: ApiController < ApplicationController
-  respond_to :html, :json, :xml
+  respond_to :json, :xml
   layout false
 
 
@@ -8,14 +8,11 @@ class Api::V1:: ApiController < ApplicationController
     @products = Product.all
 
     if @products.present?
-      @products
+      render json:  @products.to_json
     else
       @products = []
     end
 
-    respond_to do |format|
-      format.json  { render :nothing => :true, :status => :no_content }
-    end
 
   end
 
