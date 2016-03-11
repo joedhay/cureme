@@ -12,7 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_categories
-    session[:categories] = nil
+    if session[:categories].present?
+      session[:categories] = nil
+    end
+
   end
 
   def get_user_image
