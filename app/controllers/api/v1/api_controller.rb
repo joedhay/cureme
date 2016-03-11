@@ -8,7 +8,7 @@ class Api::V1:: ApiController < ApplicationController
     @products = Product.all
 
     if @products.present?
-      render json:  @products.to_json
+      @products
     else
       @products = []
     end
