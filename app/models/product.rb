@@ -8,4 +8,8 @@ class Product < ActiveRecord::Base
   validates_attachment :item3, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
   validates_attachment :item4, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
+  def item1_image_url
+    self.item1.url(:medium)
+  end
+
 end
