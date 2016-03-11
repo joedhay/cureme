@@ -12,4 +12,16 @@ class Product < ActiveRecord::Base
     self.item1.url(:medium)
   end
 
+  def item2_image_url
+    self.item2.url(:medium)
+  end
+
+  def item3_image_url
+    self.item3.url(:medium)
+  end
+
+  def item4_image_url
+    self.item4.url(:medium)
+  end
+
 end
