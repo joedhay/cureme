@@ -54,7 +54,9 @@
           </li>
           <li>
             <% if @user.avatar.exists? %>
-              <%= image_tag @user.avatar.url(:thumb),:size => "50x50" %>
+              <% if @user.avatar.present? %>
+                <%= image_tag @user.avatar.url(:thumb),:size => "50x50" %>
+              <% end %>
             <%end%>
           </li>
         <% end %>
