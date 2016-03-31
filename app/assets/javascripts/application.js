@@ -16,4 +16,6 @@
 //= require bootstrap.min
 //= require bootstrap-table
 //= require bootstrap-filestyle.min
+//= require jquery.turbolinks
+//= require turbolinks
 //= require_tree ./tools
