@@ -1,9 +1,9 @@
-<% if !session[:categories].nil? %>
+<% if @categories.present? %>
     <div class="col-md-3">
       <p class="lead">Categories</p>
       <div class="list-group">
 
-          <% session[:categories].each do |cat|%>
+          <% @categories.each do |cat|%>
                 <%= link_to cat.name, search_by_category_homes_path(:category_id => cat.id), :class => 'list-group-item' %>
           <% end %>
       </div>
