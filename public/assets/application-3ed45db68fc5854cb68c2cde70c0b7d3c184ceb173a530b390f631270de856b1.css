@@ -382,3 +382,14 @@ body {
     background-color: #26A69A;
     border-color: #009688;
 }
+.btn-custom-2 {
+    color: #009688;
+    background-color: #1DE9B6;
+    border-color: #00BFA5;
+}
+
+.panel-custom-1>.panel-heading {
+    color: #E0F2F1;
+    background-color: #009688;
+    border-color: #004D40;
+}
