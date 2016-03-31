@@ -16,4 +16,17 @@ class Api::V1:: ApiController < ApplicationController
 
   end
 
+  def get_product
+
+    @product = Product.find(params[:id])
+
+    if @product.present?
+      render json: @product.to_json(:methods => [:item1_image_url,:item2_image_url,:item3_image_url,:item4_image_url,:product_comment])
+    else
+      @products = []
+    end
+
+
+  end
+
 end

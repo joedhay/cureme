@@ -164,6 +164,7 @@ end
       resources :api do
         collection do
           get 'get_products'
+          get 'get_product'
         end
       end
     end

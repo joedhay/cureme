@@ -1,4 +1,4 @@
 class Comment < ActiveRecord::Base
-  has_many :products
-  has_many :users
+  belongs_to :product
+  belongs_to :user
 end

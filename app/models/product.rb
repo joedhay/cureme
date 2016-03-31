@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  has_many :comments
   has_attached_file :item1, styles: { small: "64x64", med: "150x70", large: "600x400" }
   has_attached_file :item2, styles: { small: "64x64", med: "150x70", large: "600x400" }
   has_attached_file :item3, styles: { small: "64x64", med: "150x70", large: "600x400" }
@@ -9,19 +10,29 @@ class Product < ActiveRecord::Base
   validates_attachment :item4, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   def item1_image_url
-    self.item1.url(:medium)
+    self.item1.url(:original)
   end
 
   def item2_image_url
-    self.item2.url(:medium)
+    self.item2.url(:original)
   end
 
   def item3_image_url
-    self.item3.url(:medium)
+    self.item3.url(:original)
   end
 
   def item4_image_url
-    self.item4.url(:medium)
+    self.item4.url(:original)
+  end
+
+  def product_comment
+    product = Product.find(self.id)
+    if product.comments.present?
+      product.comments.each do |comment|
+        comment.description
+      end
+    end
+
   end
 
 end
