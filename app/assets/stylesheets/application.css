@@ -82,3 +82,13 @@ body {
     background-color: #009688;
     border-color: #004D40;
 }
+
+.content {
+    padding-top: 5%;
+}
+.nav-header {
+    padding-bottom: 5%;
+}
+.nav-links {
+    padding-top: .5%;
+}
