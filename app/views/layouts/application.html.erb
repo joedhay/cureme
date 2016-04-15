@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag 'homes' %>
   <%= javascript_include_tag 'application'%>
   <%= javascript_include_tag "tools/#{params[:controller]}" %>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -13,7 +14,7 @@
 <div class="container">
   <div class="row">
     <%= render "layouts/category" %>
-    <div class="col-md-9">
+    <div class="col-md-9 content">
       <%= yield %>
     </div>
   </div>
