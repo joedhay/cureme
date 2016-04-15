@@ -66,6 +66,7 @@ end
   resources :products do
     collection do
       post  'detail'
+      post  'likes_product'
     end
   end
   resources :users do
@@ -167,7 +168,22 @@ end
           get 'get_product'
         end
       end
+
+      resources :products do
+        collection do
+          get 'get_products'
+          get 'get_product'
+        end
+      end
+
+      resources :users do
+        collection do
+          get 'authenticate'
+        end
+      end
     end
+
+
   end
 
 end

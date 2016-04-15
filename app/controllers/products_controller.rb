@@ -77,6 +77,27 @@ class ProductsController < ApplicationController
     end
   end
 
+  def likes_product
+    product_id = params[:product_id]
+    like = LikeProduct.where(:product_id => product_id,:user_id => session[:user_logged_id]).first
+    if like.present?
+      updated_like = like.like_count + 1
+      like.update_attributes(:like_count => updated_like)
+      render :json => { :state => 'valid'}
+    else
+      like_product = LikeProduct.new
+      like_product.user_id = session[:user_logged_id]
+      like_product.product_id = product_id
+      like_product.like_count = 1
+      if like_product.save
+        render :json => { :state => 'valid'}
+      else
+        render :json => { :state => 'invalid'}
+      end
+
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

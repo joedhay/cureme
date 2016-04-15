@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   has_many :comments
+  has_many :product_likes
   has_attached_file :item1, styles: { small: "64x64", med: "150x70", large: "600x400" }
   has_attached_file :item2, styles: { small: "64x64", med: "150x70", large: "600x400" }
   has_attached_file :item3, styles: { small: "64x64", med: "150x70", large: "600x400" }
@@ -33,6 +34,16 @@ class Product < ActiveRecord::Base
       end
     end
 
+  end
+
+  def likes
+    like_product = LikeProduct.where(:product_id => self.id).first
+
+    if like_product.present?
+      like_product.like_count
+    else
+      nil
+    end
   end
 
 end
